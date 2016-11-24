@@ -4,6 +4,13 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    doctrine.common.cache.apcu_cache:
+        class: Doctrine\Common\Cache\ApcuCache
+
+    symfony.component.validator.mapping.cache.doctrine_cache:
+        class: Symfony\Component\Validator\Mapping\Cache\DoctrineCache
+        arguments: ['@doctrine.common.cache.apcu_cache']
+
+    metadata.cache.doctrine_cache_adapter:
+        class: Metadata\Cache\DoctrineCacheAdapter
+        arguments: ['jms_serializer', '@doctrine.common.cache.apcu_cache']

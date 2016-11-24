@@ -17,7 +17,11 @@ framework:
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation:
+        enable_annotations: true
+        cache: symfony.component.validator.mapping.cache.doctrine_cache
+    annotations:
+        cache: doctrine.common.cache.apcu_cache
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
@@ -64,3 +68,7 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+jms_serializer:
+    metadata:
+        cache: metadata.cache.doctrine_cache_adapter
